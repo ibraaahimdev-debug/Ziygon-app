@@ -140,11 +140,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Sign in clicked! Onboarding Flow Complete.'),
-                      ),
-                    );
+                    context.go('/home');
                   },
                   borderRadius: BorderRadius.circular(30),
                   child: Container(
