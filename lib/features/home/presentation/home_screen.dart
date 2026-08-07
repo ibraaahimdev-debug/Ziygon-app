@@ -763,8 +763,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
           // Tab 1: Map / Activity
           _buildNavTabItem(1, Icons.directions_walk_rounded, onTap: () => context.push('/map')),
-          // Tab 2: Community
-          _buildNavTabItem(2, Icons.groups_rounded),
+          // Tab 2: Socials / Community
+          _buildNavTabItem(2, Icons.groups_rounded, onTap: () => context.push('/socials')),
           // Tab 3: Settings
           _buildNavTabItem(3, Icons.settings_rounded),
         ],

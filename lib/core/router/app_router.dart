@@ -7,6 +7,11 @@ import '../../features/profile_setup/presentation/all_done_screen.dart';
 import '../../features/profile_setup/presentation/gender_selection_screen.dart';
 import '../../features/profile_setup/presentation/height_selection_screen.dart';
 import '../../features/profile_setup/presentation/weight_selection_screen.dart';
+import '../../features/socials/presentation/communities_screen.dart';
+import '../../features/socials/presentation/community_detail_screen.dart';
+import '../../features/socials/presentation/friends_screen.dart';
+import '../../features/socials/presentation/socials_feed_screen.dart';
+import '../../features/socials/presentation/user_profile_screen.dart';
 import '../../features/splash/presentation/splash_screen.dart';
 import '../../features/territory/presentation/map_tab_screen.dart';
 import '../../features/territory/presentation/territory_cell_detail_screen.dart';
@@ -81,6 +86,31 @@ class AppRouter {
         path: '/territory-cell-detail',
         name: 'territoryCellDetail',
         builder: (context, state) => const TerritoryCellDetailScreen(),
+      ),
+      GoRoute(
+        path: '/socials',
+        name: 'socials',
+        builder: (context, state) => const SocialsFeedScreen(),
+      ),
+      GoRoute(
+        path: '/friends',
+        name: 'friends',
+        builder: (context, state) => const FriendsScreen(),
+      ),
+      GoRoute(
+        path: '/communities',
+        name: 'communities',
+        builder: (context, state) => const CommunitiesScreen(),
+      ),
+      GoRoute(
+        path: '/community-detail',
+        name: 'communityDetail',
+        builder: (context, state) => const CommunityDetailScreen(),
+      ),
+      GoRoute(
+        path: '/profile',
+        name: 'profile',
+        builder: (context, state) => const UserProfileScreen(),
       ),
     ],
   );
