@@ -27,7 +27,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Future<void> _finishOnboarding() async {
     await OnboardingService.completeOnboarding();
     if (mounted) {
-      context.go('/home');
+      context.go('/gender');
     }
   }
 
