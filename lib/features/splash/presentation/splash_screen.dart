@@ -11,7 +11,7 @@ class SplashScreen extends StatelessWidget {
     final hasSeen = await OnboardingService.hasSeenOnboarding();
     if (context.mounted) {
       if (hasSeen) {
-        context.go('/auth');
+        context.go('/gender');
       } else {
         context.go('/onboarding');
       }

@@ -162,15 +162,49 @@ class _AuthScreenState extends State<AuthScreen> {
                       ],
                     ),
                     child: const Icon(
-                      Icons.arrow_forward_rounded,
-                      color: Colors.white,
+                      Icons.play_arrow_rounded,
+                      color: Color(0xFFE8FA97),
                       size: 28,
                     ),
                   ),
                 ),
               ),
 
-              const SizedBox(height: 48),
+              const SizedBox(height: 20),
+
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                  onPressed: () => context.go('/signup'),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: AppColors.primary,
+                    side: const BorderSide(color: AppColors.primary, width: 1.4),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(28),
+                    ),
+                  ),
+                  child: Text(
+                    'Sign up',
+                    style: GoogleFonts.outfit(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 8),
+
+              Text(
+                "Don't have an account?",
+                style: GoogleFonts.inter(
+                  fontSize: 12,
+                  color: AppColors.textMuted,
+                ),
+              ),
+
+              const SizedBox(height: 24),
 
               // Option to test/reset onboarding for demo purposes
               OutlinedButton.icon(
