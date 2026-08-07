@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../core/theme/app_theme.dart';
 
@@ -760,8 +761,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
 
-          // Tab 1: Activity
-          _buildNavTabItem(1, Icons.directions_walk_rounded),
+          // Tab 1: Map / Activity
+          _buildNavTabItem(1, Icons.directions_walk_rounded, onTap: () => context.push('/map')),
           // Tab 2: Community
           _buildNavTabItem(2, Icons.groups_rounded),
           // Tab 3: Settings
@@ -771,10 +772,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildNavTabItem(int index, IconData icon) {
+  Widget _buildNavTabItem(int index, IconData icon, {VoidCallback? onTap}) {
     final isSelected = _selectedTab == index;
     return InkWell(
-      onTap: () => setState(() => _selectedTab = index),
+      onTap: onTap ?? () => setState(() => _selectedTab = index),
       borderRadius: BorderRadius.circular(24),
       child: Container(
         width: 48,

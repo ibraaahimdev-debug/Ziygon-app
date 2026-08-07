@@ -8,6 +8,10 @@ import '../../features/profile_setup/presentation/gender_selection_screen.dart';
 import '../../features/profile_setup/presentation/height_selection_screen.dart';
 import '../../features/profile_setup/presentation/weight_selection_screen.dart';
 import '../../features/splash/presentation/splash_screen.dart';
+import '../../features/territory/presentation/map_tab_screen.dart';
+import '../../features/territory/presentation/territory_cell_detail_screen.dart';
+import '../../features/territory/presentation/territory_dark_mode_screen.dart';
+import '../../features/territory/presentation/territory_tracking_screen.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
@@ -57,6 +61,26 @@ class AppRouter {
         path: '/home',
         name: 'home',
         builder: (context, state) => const HomeScreen(),
+      ),
+      GoRoute(
+        path: '/map',
+        name: 'map',
+        builder: (context, state) => const MapTabScreen(),
+      ),
+      GoRoute(
+        path: '/territory-tracking',
+        name: 'territoryTracking',
+        builder: (context, state) => const TerritoryTrackingScreen(),
+      ),
+      GoRoute(
+        path: '/territory-dark-mode',
+        name: 'territoryDarkMode',
+        builder: (context, state) => const TerritoryDarkModeScreen(),
+      ),
+      GoRoute(
+        path: '/territory-cell-detail',
+        name: 'territoryCellDetail',
+        builder: (context, state) => const TerritoryCellDetailScreen(),
       ),
     ],
   );
