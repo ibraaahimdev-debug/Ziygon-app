@@ -8,8 +8,13 @@ class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   Future<void> _proceed(BuildContext context) async {
+    final hasSeen = await OnboardingService.hasSeenOnboarding();
     if (context.mounted) {
-      context.go('/onboarding');
+      if (hasSeen) {
+        context.go('/home');
+      } else {
+        context.go('/onboarding');
+      }
     }
   }
 
