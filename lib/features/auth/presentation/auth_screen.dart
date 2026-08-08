@@ -123,7 +123,7 @@ class _AuthScreenState extends State<AuthScreen> {
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () => context.push('/forgot-password'),
                   child: Text(
                     'Forgot password?',
                     style: GoogleFonts.inter(

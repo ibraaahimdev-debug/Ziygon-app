@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -249,67 +250,137 @@ class _AuthField extends StatelessWidget {
   }
 }
 
-class _GoogleMark extends StatelessWidget {
+class _GoogleMark extends StatefulWidget {
   const _GoogleMark();
 
   @override
+  State<_GoogleMark> createState() => _GoogleMarkState();
+}
+
+class _GoogleMarkState extends State<_GoogleMark>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2400),
+    )..repeat(reverse: true);
+
+    _scaleAnimation = Tween<double>(begin: 0.95, end: 1.08).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeInOut,
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 36,
-      height: 36,
-      child: CustomPaint(painter: _GoogleGPainter()),
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return Transform.scale(
+          scale: _scaleAnimation.value,
+          child: CustomPaint(
+            size: const Size(42, 42),
+            painter: _AnimatedGoogleGPainter(progress: _controller.value),
+          ),
+        );
+      },
     );
   }
 }
 
-class _GoogleGPainter extends CustomPainter {
+class _AnimatedGoogleGPainter extends CustomPainter {
+  final double progress;
+
+  _AnimatedGoogleGPainter({required this.progress});
+
   @override
   void paint(Canvas canvas, Size size) {
-    final stroke = size.width * 0.16;
-    final rect = Rect.fromLTWH(
-      stroke,
-      stroke,
-      size.width - stroke * 2,
-      size.height - stroke * 2,
-    );
+    final center = Offset(size.width / 2, size.height / 2);
+    final stroke = size.width * 0.20;
+    final radius = (size.width - stroke) / 2;
+    final rect = Rect.fromCircle(center: center, radius: radius);
 
-    final colors = [
-      const Color(0xFFEA4335),
-      const Color(0xFFFBBC05),
-      const Color(0xFF34A853),
-      const Color(0xFF4285F4),
-    ];
-    final sweeps = [
-      1.4,
-      1.0,
-      1.4,
-      2.48,
-    ];
-    var start = -1.2;
-    for (var i = 0; i < colors.length; i++) {
-      final paint = Paint()
-        ..color = colors[i]
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = stroke
-        ..strokeCap = StrokeCap.butt;
-      canvas.drawArc(rect, start, sweeps[i], false, paint);
-      start += sweeps[i];
-    }
+    // Glowing soft background aura animation in Google colors
+    final auraColor = Color.lerp(
+      const Color(0x334285F4),
+      const Color(0x33EA4335),
+      progress,
+    )!;
+    final glowPaint = Paint()
+      ..color = auraColor
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 8);
+    canvas.drawCircle(center, size.width * 0.46 + (progress * 1.5), glowPaint);
 
-    final blue = Paint()..color = const Color(0xFF4285F4);
-    canvas.drawRect(
-      Rect.fromLTWH(
-        size.width * 0.48,
-        size.height * 0.42,
-        size.width * 0.38,
-        stroke,
-      ),
-      blue,
-    );
+    // Colors matching official rounded Google G mark exactly
+    const blueColor = Color(0xFF4285F4);
+    const greenColor = Color(0xFF34A853);
+    const yellowColor = Color(0xFFFBBC05);
+    const redColor = Color(0xFFEA4335);
+
+    final pulseRotation = math.sin(progress * math.pi * 2) * 0.08;
+
+    // 1. Red arc (top-right)
+    final redPaint = Paint()
+      ..color = redColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = stroke
+      ..strokeCap = StrokeCap.round;
+    canvas.drawArc(rect, -math.pi / 2 + pulseRotation, 1.25, false, redPaint);
+
+    // 2. Yellow arc (bottom-right)
+    final yellowPaint = Paint()
+      ..color = yellowColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = stroke
+      ..strokeCap = StrokeCap.round;
+    canvas.drawArc(rect, -math.pi / 2 + 1.25 + pulseRotation, 1.05, false, yellowPaint);
+
+    // 3. Green arc (bottom)
+    final greenPaint = Paint()
+      ..color = greenColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = stroke
+      ..strokeCap = StrokeCap.round;
+    canvas.drawArc(rect, -math.pi / 2 + 1.25 + 1.05 + pulseRotation, 1.35, false, greenPaint);
+
+    // 4. Blue arc (left & top)
+    final bluePaint = Paint()
+      ..color = blueColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = stroke
+      ..strokeCap = StrokeCap.round;
+    canvas.drawArc(rect, -math.pi / 2 + 1.25 + 1.05 + 1.35 + pulseRotation, 2.63, false, bluePaint);
+
+    // 5. Horizontal Blue Crossbar with rounded caps matching exact logo
+    final barPaint = Paint()
+      ..color = blueColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = stroke
+      ..strokeCap = StrokeCap.round;
+
+    final barStart = Offset(size.width * 0.44, size.height * 0.50);
+    final barEndLength = size.width * 0.80 + (math.sin(progress * math.pi * 2) * 1.0);
+    final barEnd = Offset(barEndLength, size.height * 0.50);
+    canvas.drawLine(barStart, barEnd, barPaint);
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  bool shouldRepaint(covariant _AnimatedGoogleGPainter oldDelegate) {
+    return oldDelegate.progress != progress;
+  }
 }
 
 class _WaveDecoration extends StatelessWidget {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../core/theme/app_theme.dart';
+import 'widgets/instagram_stories_row.dart';
 
 class SocialsFeedScreen extends StatefulWidget {
   const SocialsFeedScreen({super.key});
@@ -35,7 +36,7 @@ class _SocialsFeedScreenState extends State<SocialsFeedScreen> {
                   const SizedBox(height: 18),
 
                   // Horizontal User Stories / Avatars Row
-                  _buildStoriesRow(context),
+                  const InstagramStoriesRow(),
                   const SizedBox(height: 24),
 
                   // Quick Access Section
@@ -146,48 +147,7 @@ class _SocialsFeedScreenState extends State<SocialsFeedScreen> {
     );
   }
 
-  Widget _buildStoriesRow(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          Container(
-            width: 52,
-            height: 52,
-            margin: const EdgeInsets.only(right: 12),
-            decoration: const BoxDecoration(
-              color: Color(0xFF1E0E3B),
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(Icons.add_rounded, color: Colors.white, size: 28),
-          ),
-          _buildAvatarItem(context, const Color(0xFFFDE5D2), Icons.face_rounded, const Color(0xFFE87A3D)),
-          _buildAvatarItem(context, const Color(0xFFE8F2FD), Icons.face_6_rounded, const Color(0xFF3F82E6)),
-          _buildAvatarItem(context, const Color(0xFFFDEDE8), Icons.face_4_rounded, const Color(0xFFE0523C)),
-          _buildAvatarItem(context, const Color(0xFFF8EEFD), Icons.face_5_rounded, const Color(0xFF933FE6)),
-        ],
-      ),
-    );
-  }
 
-  Widget _buildAvatarItem(BuildContext context, Color bg, IconData icon, Color iconColor) {
-    return GestureDetector(
-      onTap: () => context.push('/profile'),
-      child: Container(
-        width: 52,
-        height: 52,
-        margin: const EdgeInsets.only(right: 12),
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(color: const Color(0xFF2C1948), width: 2.5),
-          color: bg,
-        ),
-        child: ClipOval(
-          child: Icon(icon, color: iconColor, size: 30),
-        ),
-      ),
-    );
-  }
 
   Widget _buildQuickAccessSection(BuildContext context) {
     return Column(
@@ -297,7 +257,7 @@ class _SocialsFeedScreenState extends State<SocialsFeedScreen> {
                   ),
                   const SizedBox(height: 14),
                   GestureDetector(
-                    onTap: () => context.push('/communities'),
+                    onTap: () => context.push('/explore'),
                     child: Container(
                       height: 80,
                       decoration: BoxDecoration(

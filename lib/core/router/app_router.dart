@@ -1,6 +1,9 @@
 import 'package:go_router/go_router.dart';
 import '../../features/auth/presentation/auth_screen.dart';
+import '../../features/auth/presentation/forgot_password_screen.dart';
+import '../../features/auth/presentation/reset_password_screen.dart';
 import '../../features/auth/presentation/sign_up_screen.dart';
+import '../../features/auth/presentation/verify_otp_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/onboarding/presentation/onboarding_screen.dart';
 import '../../features/profile_setup/presentation/all_done_screen.dart';
@@ -9,6 +12,7 @@ import '../../features/profile_setup/presentation/height_selection_screen.dart';
 import '../../features/profile_setup/presentation/weight_selection_screen.dart';
 import '../../features/socials/presentation/communities_screen.dart';
 import '../../features/socials/presentation/community_detail_screen.dart';
+import '../../features/socials/presentation/explore_screen.dart';
 import '../../features/socials/presentation/friends_screen.dart';
 import '../../features/socials/presentation/socials_feed_screen.dart';
 import '../../features/socials/presentation/user_profile_screen.dart';
@@ -63,6 +67,24 @@ class AppRouter {
         builder: (context, state) => const AuthScreen(),
       ),
       GoRoute(
+        path: '/forgot-password',
+        name: 'forgotPassword',
+        builder: (context, state) => const ForgotPasswordScreen(),
+      ),
+      GoRoute(
+        path: '/verify-otp',
+        name: 'verifyOtp',
+        builder: (context, state) {
+          final email = state.extra as String?;
+          return VerifyOtpScreen(email: email);
+        },
+      ),
+      GoRoute(
+        path: '/reset-password',
+        name: 'resetPassword',
+        builder: (context, state) => const ResetPasswordScreen(),
+      ),
+      GoRoute(
         path: '/home',
         name: 'home',
         builder: (context, state) => const HomeScreen(),
@@ -93,6 +115,11 @@ class AppRouter {
         builder: (context, state) => const SocialsFeedScreen(),
       ),
       GoRoute(
+        path: '/socials-feed',
+        name: 'socialsFeed',
+        builder: (context, state) => const SocialsFeedScreen(),
+      ),
+      GoRoute(
         path: '/friends',
         name: 'friends',
         builder: (context, state) => const FriendsScreen(),
@@ -101,6 +128,11 @@ class AppRouter {
         path: '/communities',
         name: 'communities',
         builder: (context, state) => const CommunitiesScreen(),
+      ),
+      GoRoute(
+        path: '/explore',
+        name: 'explore',
+        builder: (context, state) => const ExploreScreen(),
       ),
       GoRoute(
         path: '/community-detail',

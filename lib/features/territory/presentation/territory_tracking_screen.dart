@@ -6,12 +6,12 @@ class TerritoryTrackingScreen extends StatefulWidget {
   const TerritoryTrackingScreen({super.key});
 
   @override
-  State<TerritoryTrackingScreen> createState() => _TerritoryTrackingScreenState();
+  State<TerritoryTrackingScreen> createState() =>
+      _TerritoryTrackingScreenState();
 }
 
 class _TerritoryTrackingScreenState extends State<TerritoryTrackingScreen> {
   bool _isPaused = false;
-  int _selectedTab = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +23,7 @@ class _TerritoryTrackingScreenState extends State<TerritoryTrackingScreen> {
           children: [
             // Full Screen Interactive Map Background
             Positioned.fill(
-              child: CustomPaint(
-                painter: _LightTerritoryMapPainter(),
-              ),
+              child: CustomPaint(painter: _LightTerritoryMapPainter()),
             ),
 
             // Top Right Floating Controls: Profile Avatar & Notification Bell
@@ -60,7 +58,10 @@ class _TerritoryTrackingScreenState extends State<TerritoryTrackingScreen> {
                     height: 44,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      border: Border.all(color: const Color(0xFFD6D0DE), width: 1.5),
+                      border: Border.all(
+                        color: const Color(0xFFD6D0DE),
+                        width: 1.5,
+                      ),
                       color: Colors.white,
                       boxShadow: const [
                         BoxShadow(color: Colors.black12, blurRadius: 6),
@@ -83,7 +84,10 @@ class _TerritoryTrackingScreenState extends State<TerritoryTrackingScreen> {
               child: GestureDetector(
                 onTap: () => context.push('/territory-dark-mode'),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0xFF1E0E3B),
                     borderRadius: BorderRadius.circular(20),
@@ -94,7 +98,11 @@ class _TerritoryTrackingScreenState extends State<TerritoryTrackingScreen> {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.nightlight_round, color: Color(0xFFE8FA97), size: 16),
+                      const Icon(
+                        Icons.nightlight_round,
+                        color: Color(0xFFE8FA97),
+                        size: 16,
+                      ),
                       const SizedBox(width: 6),
                       Text(
                         'Rival Zone',
@@ -172,11 +180,17 @@ class _TerritoryTrackingScreenState extends State<TerritoryTrackingScreen> {
                               color: const Color(0xFF9D61FF),
                               borderRadius: BorderRadius.circular(26),
                               boxShadow: const [
-                                BoxShadow(color: Color(0x337B2FF7), blurRadius: 10, offset: Offset(0, 4)),
+                                BoxShadow(
+                                  color: Color(0x337B2FF7),
+                                  blurRadius: 10,
+                                  offset: Offset(0, 4),
+                                ),
                               ],
                             ),
                             child: Icon(
-                              _isPaused ? Icons.play_arrow_rounded : Icons.pause_rounded,
+                              _isPaused
+                                  ? Icons.play_arrow_rounded
+                                  : Icons.pause_rounded,
                               color: Colors.white,
                               size: 28,
                             ),
@@ -195,7 +209,11 @@ class _TerritoryTrackingScreenState extends State<TerritoryTrackingScreen> {
                               color: const Color(0xFF9D61FF),
                               borderRadius: BorderRadius.circular(26),
                               boxShadow: const [
-                                BoxShadow(color: Color(0x337B2FF7), blurRadius: 10, offset: Offset(0, 4)),
+                                BoxShadow(
+                                  color: Color(0x337B2FF7),
+                                  blurRadius: 10,
+                                  offset: Offset(0, 4),
+                                ),
                               ],
                             ),
                             child: const Icon(
@@ -291,7 +309,10 @@ class _TerritoryTrackingScreenState extends State<TerritoryTrackingScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _buildNavIconButton(Icons.web_asset_rounded, () => context.go('/home')),
+          _buildNavIconButton(
+            Icons.web_asset_rounded,
+            () => context.go('/home'),
+          ),
 
           // Map Tab Pill (Selected)
           Container(
@@ -338,11 +359,7 @@ class _TerritoryTrackingScreenState extends State<TerritoryTrackingScreen> {
           color: Color(0xFF8B60E6),
           shape: BoxShape.circle,
         ),
-        child: Icon(
-          icon,
-          color: Colors.white,
-          size: 22,
-        ),
+        child: Icon(icon, color: Colors.white, size: 22),
       ),
     );
   }

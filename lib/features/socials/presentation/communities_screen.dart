@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../core/theme/app_theme.dart';
+import 'widgets/instagram_stories_row.dart';
 
 class CommunitiesScreen extends StatefulWidget {
   const CommunitiesScreen({super.key});
@@ -38,7 +39,7 @@ class _CommunitiesScreenState extends State<CommunitiesScreen> {
                 children: [
                   _buildHeader(context),
                   const SizedBox(height: 18),
-                  _buildStoriesRow(context),
+                  const InstagramStoriesRow(),
                   const SizedBox(height: 24),
 
                   // Title & Search Row
@@ -128,28 +129,48 @@ class _CommunitiesScreenState extends State<CommunitiesScreen> {
 
   Widget _buildHeader(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        GestureDetector(
+          onTap: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.go('/socials');
+            }
+          },
+          child: Container(
+            width: 44,
+            height: 44,
+            decoration: BoxDecoration(
+              color: const Color(0xFF2C1948),
+              borderRadius: BorderRadius.circular(22),
+            ),
+            child: const Icon(
+              Icons.arrow_back_rounded,
+              color: Colors.white,
+              size: 22,
+            ),
+          ),
+        ),
+        const SizedBox(width: 12),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Hey,',
+                'Communities',
                 style: GoogleFonts.outfit(
                   fontSize: 22,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.bold,
                   color: const Color(0xFF2C1948),
                 ),
               ),
-              const SizedBox(height: 2),
               Text(
                 "How's your day going",
-                style: GoogleFonts.outfit(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w800,
-                  color: const Color(0xFF2C1948),
-                  height: 1.15,
+                style: GoogleFonts.inter(
+                  fontSize: 12,
+                  color: const Color(0xFF6B5F7D),
                 ),
               ),
             ],
@@ -194,48 +215,7 @@ class _CommunitiesScreenState extends State<CommunitiesScreen> {
     );
   }
 
-  Widget _buildStoriesRow(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          Container(
-            width: 52,
-            height: 52,
-            margin: const EdgeInsets.only(right: 12),
-            decoration: const BoxDecoration(
-              color: Color(0xFF1E0E3B),
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(Icons.add_rounded, color: Colors.white, size: 28),
-          ),
-          _buildAvatarItem(context, const Color(0xFFFDE5D2), Icons.face_rounded, const Color(0xFFE87A3D)),
-          _buildAvatarItem(context, const Color(0xFFE8F2FD), Icons.face_6_rounded, const Color(0xFF3F82E6)),
-          _buildAvatarItem(context, const Color(0xFFFDEDE8), Icons.face_4_rounded, const Color(0xFFE0523C)),
-          _buildAvatarItem(context, const Color(0xFFF8EEFD), Icons.face_5_rounded, const Color(0xFF933FE6)),
-        ],
-      ),
-    );
-  }
 
-  Widget _buildAvatarItem(BuildContext context, Color bg, IconData icon, Color iconColor) {
-    return GestureDetector(
-      onTap: () => context.push('/profile'),
-      child: Container(
-        width: 52,
-        height: 52,
-        margin: const EdgeInsets.only(right: 12),
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(color: const Color(0xFF2C1948), width: 2.5),
-          color: bg,
-        ),
-        child: ClipOval(
-          child: Icon(icon, color: iconColor, size: 30),
-        ),
-      ),
-    );
-  }
 
   Widget _buildFeaturedCommunityCard({
     required String title,
